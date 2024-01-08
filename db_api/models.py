@@ -70,26 +70,102 @@ class SecurityLicense(Enum):
 class Military(Enum):
     NAI = "Ναι"
     OXI = "Όχι"
-    MhYpoxreos = "Μη υπόχρεος"
+    MhYpoxreos = "Μη Υπόχρεος"
 
 class CandidateStatus(Enum):
     NOT_WORKING = "Δεν εργάζομαι – Αναζητώ μία θέση εργασίας."
     WORKING = "Εργάζομαι, αλλά αναζητώ καλύτερες συνθήκες."
     NOT_LOOKING = "Δεν αναζητώ μία θέση εργασίας προς το παρών."
 
+class DesirableWorkType(Enum):
+    FULL = "Πλήρους απασχόλησης"
+    PARTTIME = "Μερικής απασχόλησης"
+    SEASON = "Εποχιακή θέση"
+    CONTRACTOR = "Ελεύθερος Επαγγελματίας"
+    EVENT = "Έκτακτη θέση (Event)"
 
-class Meta(EmbeddedDocument):
-    user_id = fields.StringField(unique=True, required=True),
+class DesirableSchedule(Enum):
+    PRWINO = "ΔΕ-ΠΑ (Πρωινό)"
+    KYLIOMENO = "ΔΕ-ΠΑ (Κυλιόμενο)"
+    VRADINO = "ΔΕ-ΠΑ (Βραδινό)"
+    SAVVATO = "Σάββατο (Δυνατότητα εργασίας)"
+    KYRIAKH = "Κυριακή (Δυνατότητα εργασίας)"
+    ADIAFORO = "Αδιάφορο"
+
+class KartaAnergias(Enum):
+    ENERGH_MAKRO = "Ενεργή (Μακροχρόνια άνεργος)"
+    ENERGH_LIGO = "Ενεργή (Λιγότερο από 12 μήνες)"
+    OXI = "Όχι"
+
+class AdeiaAsfaleias(Enum):
+    NAI = "Ναι"
+    OXI = "Όχι"
+    EXEILH3EI = "Έχει λήξει"
+    YPOEKDOSH = "Υπό έκδοση"
+
+class NaiOxi(Enum):
+    NAI = "Ναι"
+    OXI = "Όχι"
+
+class Agglika(Enum):
+    KA8OLOU = "Καθόλου"
+    BASIC = "Στοιχειώδης / Βασική"
+    METRIA = "Μέτρια / Καλή"
+    POLY_KALH = "Πολύ καλή / Άριστη"
+
+class Gender(Enum):
+    MALE = "Άνδρας"
+    FEMALE = "Γυναίκα"
+    OTHER = "Άλλο"
+
+
+class Employee(EmbeddedDocument):
+    username = fields.StringField(primary_key=True, unique=True, required=True),
     first_name = fields.StringField(required=True),
     last_name = fields.StringField(required=True),
+    gender = fields.EnumField(Gender),
     cs_user_status = fields.EnumField(CandidateStatus),  # Auto einai h Trexousa Katastash 1A
     job_position = fields.ListField(fields.EnumField(JobType)), #1B
-    desirable_sector = fields.ListField(fields.EnumField(SpecialismType))  # 2
+    desirable_sector = fields.ListField(fields.EnumField(SpecialismType))  #2
     cs_specialisms = fields.ListField(Specialism),  # 2A & 2B
-    desirable_country = fields.StringField(default='Ελλάδα')  # 3
-    desirable_area = ...
+    desirable_country = fields.StringField(default='Ελλάδα'),  #3
+    desirable_area_perifereia = fields.StringField(),  #values from lat_long Collection (Perifereia_gr) #4
+    desirable_area_dhmos = fields.StringField(), #values from lat_long Collection (Dhmos_gr) #5
+    desirable_work_type = fields.EnumField(DesirableWorkType, default=DesirableWorkType.FULL), #6
+    desirable_schedule = fields.EnumField(DesirableSchedule, default=DesirableSchedule.ADIAFORO), #7
+    min_wromis8io = fields.FloatField(), #8
+    min_mis8os = fields.FloatField(), #9
+    karta_anergias = fields.EnumField(KartaAnergias, default=KartaAnergias.OXI), #10
+    adeia_asfaleias = fields.EnumField(AdeiaAsfaleias), #11
+    adeiaIX = fields.EnumField(NaiOxi), #12
+    adeiaDikyklo = fields.EnumField(NaiOxi), #13
+    education_level = fields.EnumField(EducationLevel, default=None), #14
+    agglika = fields.EnumField(Agglika), #15
+    allh_glwssa =  fields.ListField(fields.StringField()), #Kamia, mia h kai parapanw alles glwsses #15A
+    cctv =  fields.EnumField(NaiOxi), #16
+    pc = fields.EnumField(NaiOxi), #17
+    mouseia = fields.EnumField(NaiOxi), #18
+    x_ray_screener = fields.EnumField(NaiOxi), #19
+    first_aid = fields.EnumField(NaiOxi), #20
+    lifeguard = fields.EnumField(NaiOxi), #21
+    limenikes_egk = fields.EnumField(NaiOxi), #22
+    epoptes_arxi = fields.EnumField(NaiOxi), #23
+    vip = fields.EnumField(NaiOxi), #24
+    oplokatoxh = fields.EnumField(NaiOxi), #25
+    polemikes_texnes = fields.EnumField(NaiOxi), #26
+    drone = fields.EnumField(NaiOxi), #27
+    military_obligations = fields.EnumField(Military, default=None), #28
+    physic_and_endurance = fields.IntField(min_value=1, max_value=5), #29
+    appearance = fields.IntField(min_value=1, max_value=5), #30
+    supervision_inspection = fields.IntField(min_value=1, max_value=5), #31
+    communications_skills = fields.IntField(min_value=1, max_value=5), #32
+    reflexes_on_danger = fields.IntField(min_value=1, max_value=5), #33
+    professionalism = fields.IntField(min_value=1, max_value=5), #34
+    confidentiality = fields.IntField(min_value=1, max_value=5),  #35
 
+    meta = {'collection': 'employees'}
 
+'''
     description = fields.StringField(),
     rich_editing = fields.BooleanField(), #? XXX
     syntax_highlighting = fields.BooleanField(), #? XXX
@@ -108,13 +184,7 @@ class Meta(EmbeddedDocument):
     user_last_login = fields.StringField(), #? is this a date? XXX
     wc_last_active =  fields.StringField(), #? is this a date? XXX
     cs_user_last_activity_date = fields.StringField(), #? is this a date? XXX
-
-
-
     cs_phone_number = fields.StringField(), #?
-
-
-
     _woocommerce_persistent_cart_1 = fields.StringField(), #? XXX
     cs_employer_img = fields.StringField(), #? XXX
     cs_cover_employer_img = fields.StringField(), #? XXX
@@ -170,7 +240,6 @@ class Meta(EmbeddedDocument):
     cs_candidate_cv = fields.StringField(), #?
     show_experience = fields.BooleanField(), #?
     show_age = fields.BooleanField(), #?
-    education_level = fields.EnumField(EducationLevel, default=None),
     wpseo_title = fields.StringField(), #?
     wpseo_metadesc = fields.StringField(), #?
     wpseo_noindex_author = fields.StringField(), #?
@@ -215,9 +284,6 @@ class Meta(EmbeddedDocument):
     cs_skill_percentage_array = fields.StringField(), #???
     cs_ = fields.StringField(), #?
     cs_likio__ = fields.BooleanField(), #?
-
-
-
     action = fields.StringField(), #?
     security_license_expiry = fields.DateField(),
     driving_license_car_expiry = fields.DateField(),
@@ -239,12 +305,6 @@ class Meta(EmbeddedDocument):
     gun_license = fields.BooleanField(),
     martial_arts = fields.BooleanField(),
     drone_operator = fields.BooleanField(),
-    military_obligations = fields.EnumField(Military, default=None),
-    physic_and_endurance = fields.IntField(min_value=1, max_value=5)
-    superivion_inspection = fields.IntField(min_value=1, max_value=5),
-    communications_skills = fields.IntField(min_value=1, max_value=5),
-    safety_and_security = fields.IntField(min_value=1, max_value=5), #?
-    reflexes_on_danger = fields.IntField(min_value=1, max_value=5),
     cs_specialisms2 = fields.ListField(Specialism), # XXX
     cs_specialisms3 = fields.ListField(Specialism), # XXX
     cs_specialisms4 = fields.ListField(Specialism), # XXX
@@ -257,8 +317,8 @@ class Meta(EmbeddedDocument):
     cs_specialisms_time3 = fields.FloatField(), # XXX
     cs_specialisms_time4 = fields.FloatField(), # XXX
     cs_work_type = fields.StringField() # XXX
-
-
+'''
+'''
 class Employee(Document):
     ID = fields.StringField(unique=True, null=False),
     user_login = fields.StringField(unique=True, null=False),
@@ -266,3 +326,4 @@ class Employee(Document):
     metaaa = EmbeddedDocumentField(Meta, db_field="meta")
 
     meta = {'collection': 'employees'}
+'''

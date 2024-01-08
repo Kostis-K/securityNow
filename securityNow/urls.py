@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from securityNow import urls as my_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('securityNow/', include(my_urls))
 ]
