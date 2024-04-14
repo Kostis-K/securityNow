@@ -12,3 +12,7 @@ class EmployeeSerializer(serializers.EmbeddedDocumentSerializer):
     class Meta:
         model = Employee
         fields = '__all__'
+
+    def create(self, validated_data):
+        employee = Employee.objects.create(**validated_data)
+        return employee
