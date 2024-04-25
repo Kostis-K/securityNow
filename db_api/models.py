@@ -23,7 +23,7 @@ class Specialism(EmbeddedDocument):
     specialism = fields.EnumField(SpecialismType, default=None)
     specialism_time_from = fields.DateField()
     specialism_time_to = fields.DateField(default=datetime.datetime.utcnow())
-    specialism_time_diff = fields.FloatField()
+    #specialism_time_diff = fields.FloatField() #auto prokyptei
 
 class JobType(Enum):
     PROSWPIKO_ASF = 'Προσωπικό Ασφαλείας - Φύλακας(Στατική φύλαξη)'
@@ -119,7 +119,7 @@ class Gender(Enum):
     OTHER = "Άλλο"
 
 
-class Employee(EmbeddedDocument):
+class Employee(Document):
     username = fields.StringField(primary_key=True, unique=True, required=True),
     first_name = fields.StringField(required=True),
     last_name = fields.StringField(required=True),
@@ -127,7 +127,7 @@ class Employee(EmbeddedDocument):
     cs_user_status = fields.EnumField(CandidateStatus),  # Auto einai h Trexousa Katastash 1A
     job_position = fields.ListField(fields.EnumField(JobType)), #1B
     desirable_sector = fields.ListField(fields.EnumField(SpecialismType))  #2
-    cs_specialisms = fields.ListField(Specialism),  # 2A & 2B
+    #cs_specialisms = fields.ListField(Specialism),  # 2A & 2B
     desirable_country = fields.StringField(default='Ελλάδα'),  #3
     desirable_area_perifereia = fields.StringField(),  #values from lat_long Collection (Perifereia_gr) #4
     desirable_area_dhmos = fields.StringField(), #values from lat_long Collection (Dhmos_gr) #5

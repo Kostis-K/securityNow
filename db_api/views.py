@@ -15,6 +15,9 @@ class EmployeeApiView(APIView): #securityNow/employee
     def post(self, request, *args, **kwargs):
         print("Post request called....!!!!! Up in here...!!")
         serializer = EmployeeSerializer(data=request.data)
+        print("**** request dataaa ****")
+        print(request.data)
+        print("**** **** **** **** ****")
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

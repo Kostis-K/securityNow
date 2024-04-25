@@ -8,7 +8,7 @@ class SpecialismSerializer(serializers.DocumentSerializer):
         fields = '__all__'
 
 class EmployeeSerializer(serializers.EmbeddedDocumentSerializer):
-    cs_specialisms = SpecialismSerializer()
+    #cs_specialisms = SpecialismSerializer()
     class Meta:
         model = Employee
         fields = '__all__'
