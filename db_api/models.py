@@ -1,9 +1,9 @@
 import datetime
 from enum import Enum
-from mongoengine import Document, EmbeddedDocument, EmbeddedDocumentField, fields
+from mongoengine import Document, EmbeddedDocument, EmbeddedDocumentField, fields, EmbeddedDocumentListField
 
 # Create your models here.
-class SpecialismType(Enum):
+class SpecialismType(str, Enum):
     #DIGITAL = 'digital' # ti einai ayto dhladh?
     POLYKATASTHMA = 'Πολυκατάστημα / Mall'
     SUPERMARKET = 'Supermarket'
@@ -25,7 +25,7 @@ class Specialism(EmbeddedDocument):
     specialism_time_to = fields.DateField(default=datetime.datetime.utcnow())
     #specialism_time_diff = fields.FloatField() #auto prokyptei
 
-class JobType(Enum):
+class JobType(str, Enum):
     PROSWPIKO_ASF = 'Προσωπικό Ασφαλείας - Φύλακας(Στατική φύλαξη)'
     PATROL = 'Προσωπικό Ασφαλείας - Patrol'
     ELEGKTHS = 'Ελεγκτής Ασφαλείας Αερομεταφορών(X - Ray Screener)'
@@ -53,7 +53,7 @@ class JobType(Enum):
     APENTOMWSH = 'Τεχνικός Εφαρμογών Απεντομώσεων & Απολυμάνσεων – Γεωπόνος'
     OTHER = 'Άλλο'
 
-class EducationLevel(Enum):
+class EducationLevel(str, Enum):
     DHMOTIKO = "Δημοτικό"
     GYMNASIO = "Γυμνάσιο"
     LYKEIO = "Λύκειο"
@@ -61,30 +61,30 @@ class EducationLevel(Enum):
     AEI_TEI = "ΑΕΙ/ΤΕΙ"
     MASTER = "Μεταπτυχιακό"
 
-class SecurityLicense(Enum):
+class SecurityLicense(str, Enum):
     NAI = "Ναι"
     OXI = "Όχι"
     Expired = "Έχει λήξει"
     YpoEkdosh = "Υπό έκδοση"
 
-class Military(Enum):
+class Military(str, Enum):
     NAI = "Ναι"
     OXI = "Όχι"
     MhYpoxreos = "Μη Υπόχρεος"
 
-class CandidateStatus(Enum):
+class CandidateStatus(str, Enum):
     NOT_WORKING = "Δεν εργάζομαι – Αναζητώ μία θέση εργασίας."
     WORKING = "Εργάζομαι, αλλά αναζητώ καλύτερες συνθήκες."
     NOT_LOOKING = "Δεν αναζητώ μία θέση εργασίας προς το παρών."
 
-class DesirableWorkType(Enum):
+class DesirableWorkType(str, Enum):
     FULL = "Πλήρους απασχόλησης"
     PARTTIME = "Μερικής απασχόλησης"
     SEASON = "Εποχιακή θέση"
     CONTRACTOR = "Ελεύθερος Επαγγελματίας"
     EVENT = "Έκτακτη θέση (Event)"
 
-class DesirableSchedule(Enum):
+class DesirableSchedule(str, Enum):
     PRWINO = "ΔΕ-ΠΑ (Πρωινό)"
     KYLIOMENO = "ΔΕ-ΠΑ (Κυλιόμενο)"
     VRADINO = "ΔΕ-ΠΑ (Βραδινό)"
@@ -92,35 +92,36 @@ class DesirableSchedule(Enum):
     KYRIAKH = "Κυριακή (Δυνατότητα εργασίας)"
     ADIAFORO = "Αδιάφορο"
 
-class KartaAnergias(Enum):
+class KartaAnergias(str, Enum):
     ENERGH_MAKRO = "Ενεργή (Μακροχρόνια άνεργος)"
     ENERGH_LIGO = "Ενεργή (Λιγότερο από 12 μήνες)"
     OXI = "Όχι"
 
-class AdeiaAsfaleias(Enum):
+class AdeiaAsfaleias(str, Enum):
     NAI = "Ναι"
     OXI = "Όχι"
     EXEILH3EI = "Έχει λήξει"
     YPOEKDOSH = "Υπό έκδοση"
 
-class NaiOxi(Enum):
+class NaiOxi(str, Enum):
     NAI = "Ναι"
     OXI = "Όχι"
 
-class Agglika(Enum):
+class Agglika(str, Enum):
     KA8OLOU = "Καθόλου"
     BASIC = "Στοιχειώδης / Βασική"
     METRIA = "Μέτρια / Καλή"
     POLY_KALH = "Πολύ καλή / Άριστη"
 
-class Gender(Enum):
+class Gender(str, Enum):
     MALE = "Άνδρας"
     FEMALE = "Γυναίκα"
     OTHER = "Άλλο"
 
 
 class Employee(Document):
-    username = fields.StringField(primary_key=True, unique=True, required=True),
+    #username = fields.StringField(primary_key=True, unique=True, required=True),
+    username = fields.StringField(unique=True, required=True),
     first_name = fields.StringField(required=True),
     last_name = fields.StringField(required=True),
     gender = fields.EnumField(Gender),
@@ -128,6 +129,7 @@ class Employee(Document):
     job_position = fields.ListField(fields.EnumField(JobType)), #1B
     desirable_sector = fields.ListField(fields.EnumField(SpecialismType))  #2
     #cs_specialisms = fields.ListField(Specialism),  # 2A & 2B
+    cs_specialisms = EmbeddedDocumentListField(Specialism)
     desirable_country = fields.StringField(default='Ελλάδα'),  #3
     desirable_area_perifereia = fields.StringField(),  #values from lat_long Collection (Perifereia_gr) #4
     desirable_area_dhmos = fields.StringField(), #values from lat_long Collection (Dhmos_gr) #5
