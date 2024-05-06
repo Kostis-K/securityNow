@@ -1,60 +1,61 @@
 import mongoengine
 from rest_framework_mongoengine import serializers
-from .models import Employee, Specialism
+from .models import Employee#, Specialism
 from mongoengine import fields
 import enum
 
-class SpecialismSerializer(serializers.DocumentSerializer):
-    class Meta:
-        model = Specialism
-        fields = ('specialism', 'specialism_time_from', 'specialism_time_to')
+# class SpecialismSerializer(serializers.DocumentSerializer):
+#     class Meta:
+#         model = Specialism
+#         fields = ('specialism', 'specialism_time_from', 'specialism_time_to')
 
 class EmployeeSerializer(serializers.EmbeddedDocumentSerializer):
-    cs_specialisms = SpecialismSerializer(many=True)
+    #cs_specialisms = SpecialismSerializer(many=True)
     class Meta:
         model = Employee
         fields = ('username',
                   'first_name',
                   'last_name',
-                  'gender',
-                  'cs_user_status',
-                  'job_position',
-                  'desirable_sector',
-                  'cs_specialisms',
-                  'desirable_country',
-                  'desirable_area_perifereia',
-                  'desirable_area_dhmos',
-                  'desirable_work_type',
-                  'desirable_schedule',
-                  'min_wromis8io',
-                  'min_mis8os',
-                  'karta_anergias',
-                  'adeia_asfaleias',
-                  'adeiaIX',
-                  'adeiaDikyklo',
-                  'education_level',
-                  'agglika',
-                  'allh_glwssa',
-                  'cctv',
-                  'pc',
-                  'mouseia',
-                  'x_ray_screener',
-                  'first_aid',
-                  'lifeguard',
-                  'limenikes_egk',
-                  'epoptes_arxi',
-                  'vip',
-                  'oplokatoxh',
-                  'polemikes_texnes',
-                  'drone',
-                  'military_obligations',
-                  'physic_and_endurance',
-                  'appearance',
-                  'supervision_inspection',
-                  'communications_skills',
-                  'reflexes_on_danger',
-                  'professionalism',
-                  'confidentiality')
+                  # 'gender',
+                  # 'cs_user_status',
+                  # 'job_position',
+                  # 'desirable_sector',
+                  # 'cs_specialisms',
+                  # 'desirable_country',
+                  # 'desirable_area_perifereia',
+                  # 'desirable_area_dhmos',
+                  # 'desirable_work_type',
+                  # 'desirable_schedule',
+                  # 'min_wromis8io',
+                  # 'min_mis8os',
+                  # 'karta_anergias',
+                  # 'adeia_asfaleias',
+                  # 'adeiaIX',
+                  # 'adeiaDikyklo',
+                  # 'education_level',
+                  # 'agglika',
+                  # 'allh_glwssa',
+                  # 'cctv',
+                  # 'pc',
+                  # 'mouseia',
+                  # 'x_ray_screener',
+                  # 'first_aid',
+                  # 'lifeguard',
+                  # 'limenikes_egk',
+                  # 'epoptes_arxi',
+                  # 'vip',
+                  # 'oplokatoxh',
+                  # 'polemikes_texnes',
+                  # 'drone',
+                  # 'military_obligations',
+                  # 'physic_and_endurance',
+                  # 'appearance',
+                  # 'supervision_inspection',
+                  # 'communications_skills',
+                  # 'reflexes_on_danger',
+                  # 'professionalism',
+                  # 'confidentiality'
+        )
 
     # def to_representation(self, instance):
     #     json_inst = instance.to_json()
