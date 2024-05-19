@@ -16,45 +16,45 @@ class EmployeeSerializer(serializers.EmbeddedDocumentSerializer):
         fields = ('username',
                   'first_name',
                   'last_name',
-                  # 'gender',
-                  # 'cs_user_status',
-                  # 'job_position',
-                  # 'desirable_sector',
-                  # 'cs_specialisms',
-                  # 'desirable_country',
-                  # 'desirable_area_perifereia',
-                  # 'desirable_area_dhmos',
-                  # 'desirable_work_type',
-                  # 'desirable_schedule',
-                  # 'min_wromis8io',
-                  # 'min_mis8os',
-                  # 'karta_anergias',
-                  # 'adeia_asfaleias',
-                  # 'adeiaIX',
-                  # 'adeiaDikyklo',
-                  # 'education_level',
-                  # 'agglika',
-                  # 'allh_glwssa',
-                  # 'cctv',
-                  # 'pc',
-                  # 'mouseia',
-                  # 'x_ray_screener',
-                  # 'first_aid',
-                  # 'lifeguard',
-                  # 'limenikes_egk',
-                  # 'epoptes_arxi',
-                  # 'vip',
-                  # 'oplokatoxh',
-                  # 'polemikes_texnes',
-                  # 'drone',
-                  # 'military_obligations',
-                  # 'physic_and_endurance',
-                  # 'appearance',
-                  # 'supervision_inspection',
-                  # 'communications_skills',
-                  # 'reflexes_on_danger',
-                  # 'professionalism',
-                  # 'confidentiality'
+                  'gender',
+                  'cs_user_status',
+                  'job_position',
+                  'desirable_sector',
+                  'cs_specialisms',
+                  'desirable_country',
+                  'desirable_area_perifereia',
+                  'desirable_area_dhmos',
+                  'desirable_work_type',
+                  'desirable_schedule',
+                  'min_wromis8io',
+                  'min_mis8os',
+                  'karta_anergias',
+                  'adeia_asfaleias',
+                  'adeiaIX',
+                  'adeiaDikyklo',
+                  'education_level',
+                  'agglika',
+                  'allh_glwssa',
+                  'cctv',
+                  'pc',
+                  'mouseia',
+                  'x_ray_screener',
+                  'first_aid',
+                  'lifeguard',
+                  'limenikes_egk',
+                  'epoptes_arxi',
+                  'vip',
+                  'oplokatoxh',
+                  'polemikes_texnes',
+                  'drone',
+                  'military_obligations',
+                  'physic_and_endurance',
+                  'appearance',
+                  'supervision_inspection',
+                  'communications_skills',
+                  'reflexes_on_danger',
+                  'professionalism',
+                  'confidentiality'
         )
 
     # def to_representation(self, instance):
@@ -81,10 +81,10 @@ class EmployeeSerializer(serializers.EmbeddedDocumentSerializer):
     #         if value is not None:
     #             representation[field_name] = value
     #     return representation
-'''
+    '''
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        for field_name, field in instance.items():
+        for field_name, field in representation.items():
             # if field_name == 'cs_specialisms':
             #     serialized_specialisms = []
             #     for specialism in field:
@@ -100,7 +100,7 @@ class EmployeeSerializer(serializers.EmbeddedDocumentSerializer):
                 representation[field_name] = [str(item) for item in field]
             elif isinstance(field, tuple):
                 # Convert Enum fields to string
-                print(f'Is the tuple a String?? {field_name} is {type(field)}??: tuple:#{field}#')
+                #print(f'Is the tuple a String?? {field_name} is {type(field)}??: tuple:#{field}#')
                 representation[field_name] = str(field[0])
             elif isinstance(field, dict):
                 representation[field_name] = {key: str(value) for key, value in field.items()}
@@ -111,7 +111,7 @@ class EmployeeSerializer(serializers.EmbeddedDocumentSerializer):
             #     representation[field_name] = {key: str(value) for key, value in field.items()}
             elif hasattr(instance, field_name):
                 value = getattr(instance, field_name)
-                print(f'IS THIS A STRING?? {field_name} -- {representation[field_name]} <--')
+                #print(f'IS THIS A STRING?? {field_name} -- {representation[field_name]} <--')
                 if hasattr(value, 'to_mongo'):
                     representation[field_name] = str(value.to_mongo())
                 #print(f'StringField: {representation[field_name]} <--')
