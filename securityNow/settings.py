@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-uz&!ih-=6868i3u+&oqt_ewc3r**69)%59h@5edvxu3@roupyg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+#ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,7 +84,8 @@ WSGI_APPLICATION = 'securityNow.wsgi.application'
 #     }
 # }
 import mongoengine
-mongoengine.connect(host="mongodb://admin:security_now_the_best@localhost:27017/security_now")
+#mongoengine.connect(host="mongodb://admin:security_now_the_best@localhost:27017/security_now")
+mongoengine.connect(host="mongodb://securitynow-25460:TDkmuVcwCVsJRiLWmTosaBHWH3VKTQ@db-securitynow-25460.nodechef.com:5367/securitynow")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
