@@ -22,23 +22,12 @@ class EmployeeApiView(APIView): #securityNow/employee
         serializer = EmployeeSerializer(data=self.getData(request))
         print("**** serializer dataaa ****")
         #print(request.data)
-        #print("**** **** **** **** ****")
         try:
             if serializer.is_valid():
-                #data = self.createEmployeeObj(request)
-                #Employee(data=data).update()
                 print(serializer.validated_data)
                 print('Step 1')
                 employee_inst = serializer.save()
-                #emplObj = self.createEmployeeObj2(request)
                 print('Step 2')
-                #Employee.objects.insert(emplObj)
-                #emplObj.save()
-                print('Step 333')
-                #emplObj2 = self.createEmployeeObj3(request)
-                #Employee.objects.insert(emplObj2)
-                #print('Step 4')
-                #Employee.objects(data=data).save()
                 return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
         except Exception as exxx:
             print('%%% Catch HERE BAD REQUESTTT.... %%%')
@@ -47,11 +36,7 @@ class EmployeeApiView(APIView): #securityNow/employee
                 #serializer.save() #gia kapoio logo den katafera na swsw sth vash katey8eian to diserialized object...
                 # print("***** serializer data ****") #Gia kapoio logo o serializer ta kanei mantAra... Den katafera na ton ftia3w na pai3ei swsta kai ayto me tsantizei...
                 # print(serializer.data)
-                # print("**** **** **** **** ****")
-        #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # except Exception as exxx:
-        #     return Response(str(exxx), status=status.HTTP_400_BAD_REQUEST)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     def getData(self, request): #helper function since I didn't manage to serialize properly the Employee in request...
         data = {
@@ -100,62 +85,3 @@ class EmployeeApiView(APIView): #securityNow/employee
             'confidentiality' : request.data.get('confidentiality'),  # 35
         }
         return data
-
-    # def createEmployeeObj2(self, request): #helper function since I didn't manage to serialize properly the Employee in request...
-    #     emplObj = Employee()
-    #     emplObj.username=request.data.get('username')
-    #     print(f'--Username:{emplObj.username}-->')
-    #     emplObj.first_name=request.data.get('firstname')
-    #     emplObj.last_name=request.data.get('lastname')
-    #     emplObj.gender=request.data.get('gender')
-    #     emplObj.cs_user_status=request.data.get('cs_user_status')  # Auto einai h Trexousa Katastash 1A
-    #     emplObj.job_position=request.data.get('job_position')  # 1B
-    #     emplObj.desirable_sector=request.data.get('desirable_sector')  # 2
-    #     emplObj.cs_specialisms=request.data.get('cs_specialisms'),  # 2A & 2B
-    #     emplObj.desirable_country=request.data.get('desirable_country')  # 3
-    #     emplObj.desirable_area_perifereia=request.data.get('desirable_area_perifereia')  # values from lat_long Collection (Perifereia_gr) #4
-    #     emplObj.desirable_area_dhmos=request.data.get('desirable_area_dhmos')  # values from lat_long Collection (Dhmos_gr) #5
-    #     emplObj.desirable_work_type=request.data.get('desirable_work_type')  # 6
-    #     emplObj.desirable_schedule=request.data.get('desirable_schedule')  # 7
-    #     emplObj.min_wromis8io=request.data.get('min_wromis8io')  # 8
-    #     emplObj.min_mis8os=request.data.get('min_mis8os')  # 9
-    #     emplObj.karta_anergias=request.data.get('karta_anergias')  # 10
-    #     emplObj.adeia_asfaleias=request.data.get('adeia_asfaleias')  # 11
-    #     emplObj.adeiaIX=request.data.get('adeiaIX') # 12
-    #     emplObj.adeiaDikyklo=request.data.get('adeiaDikyklo')  # 13
-    #     emplObj.education_level=request.data.get('education_level')  # 14
-    #     emplObj.agglika=request.data.get('agglika') # 15
-    #     emplObj.allh_glwssa=request.data.get('allh_glwssa')  # Kamia, mia h kai parapanw alles glwsses #15A
-    #     emplObj.cctv=request.data.get('cctv')  # 16
-    #     emplObj.pc=request.data.get('pc')  # 17
-    #     emplObj.mouseia=request.data.get('mouseia')  # 18
-    #     emplObj.x_ray_screener=request.data.get('x_ray_screener')  # 19
-    #     emplObj.first_aid=request.data.get('first_aid')  # 20
-    #     emplObj.lifeguard=request.data.get('lifeguard')  # 21
-    #     emplObj.limenikes_egk=request.data.get('limenikes_egk')  # 22
-    #     emplObj.epoptes_arxi=request.data.get('epoptes_arxi')  # 23
-    #     emplObj.vip=request.data.get('vip') # 24
-    #     emplObj.oplokatoxh=request.data.get('oplokatoxh')  # 25
-    #     emplObj.polemikes_texnes=request.data.get('polemikes_texnes')  # 26
-    #     emplObj.drone=request.data.get('drone')  # 27
-    #     emplObj.military_obligations=request.data.get('military_obligations')  # 28
-    #     emplObj.physic_and_endurance=request.data.get('physic_and_endurance')  # 29
-    #     emplObj.appearance=request.data.get('appearance')  # 30
-    #     emplObj.supervision_inspection=request.data.get('supervision_inspection')  # 31
-    #     emplObj.communications_skills=request.data.get('communications_skills')  # 32
-    #     emplObj.reflexes_on_danger=request.data.get('reflexes_on_danger')  # 33
-    #     emplObj.professionalism=request.data.get('professionalism') # 34
-    #     emplObj.confidentiality=request.data.get('confidentiality') # 35
-    #     print('$$$$$$ START EMPLOYEE $$$$$$')
-    #     print(emplObj)
-    #     print('$$$$$$ END EMPLOYEE $$$$$$')
-    #     return emplObj
-    #
-    # def createEmployeeObj3(self, request):  # helper function since I didn't manage to serialize properly the Employee in request...
-    #     emplObj = Employee()
-    #     emplObj.username = request.data.get('username')
-    #     print(f'--Username.3:{emplObj.username}-->')
-    #     emplObj.first_name = request.data.get('firstname')
-    #     emplObj.last_name = request.data.get('lastname')
-    #     emplObj.gender = request.data.get('gender')
-    #     return emplObj
