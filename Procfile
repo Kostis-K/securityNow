@@ -1,1 +1,1 @@
-web: waitress-serve --listen=localhost:8000 securityNow.wsgi:application
+web: waitress-serve --listen=*:8000 securityNow.wsgi:application
