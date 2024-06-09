@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$8000 securityNow.wsgi:application
+web: python app.py
