@@ -1,1 +1,1 @@
-web: python manage.py runserver localhost:8000
+web: gunicorn --bind 0.0.0.0:8000 securityNow.wsgi:application
