@@ -1,1 +1,1 @@
-web: waitress-serve --listen=*:8000 securityNow.wsgi:application
+waitress-serve --port=8041 --url-scheme=http securityNow:wsgifunc
