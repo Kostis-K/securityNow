@@ -84,8 +84,8 @@ WSGI_APPLICATION = 'securityNow.wsgi.application'
 #     }
 # }
 import mongoengine
-mongoengine.connect(host="mongodb://admin:security_now_the_best@localhost:27017/security_now")
-#mongoengine.connect(host="mongodb://securitynow-25460:TDkmuVcwCVsJRiLWmTosaBHWH3VKTQ@db-securitynow-25460.nodechef.com:5367/securitynow")
+#mongoengine.connect(host="mongodb://admin:security_now_the_best@localhost:27017/security_now")
+mongoengine.connect(host="mongodb://securitynow-25460:TDkmuVcwCVsJRiLWmTosaBHWH3VKTQ@db-securitynow-25460.nodechef.com:5367/securitynow")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
