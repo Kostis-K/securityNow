@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:8000 securityNow.wsgi:application
+web: waitress-serve --listen=localhost:8000 securityNow.wsgi:application
