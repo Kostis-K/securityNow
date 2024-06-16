@@ -1,1 +1,1 @@
-waitress-serve --listen=*:8000 securityNow.wsgi:application
+waitress-serve --listen=*:$PORT securityNow.wsgi:application
